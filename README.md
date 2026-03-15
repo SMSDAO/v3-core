@@ -103,6 +103,9 @@ See [docs/architecture.md](./docs/architecture.md) for the full contract depende
 ### Admin Dashboard
 ![Admin Dashboard](docs/assets/ui/admin-dashboard.png)
 
+### Developer Dashboard
+![Developer Dashboard](docs/assets/ui/developer-dashboard.png)
+
 ---
 
 ## Navigation
