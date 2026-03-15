@@ -1,66 +1,227 @@
-# Uniswap V3
+# SMSDAO v3-core
 
-[![Lint](https://github.com/Uniswap/uniswap-v3-core/actions/workflows/lint.yml/badge.svg)](https://github.com/Uniswap/uniswap-v3-core/actions/workflows/lint.yml)
-[![Tests](https://github.com/Uniswap/uniswap-v3-core/actions/workflows/tests.yml/badge.svg)](https://github.com/Uniswap/uniswap-v3-core/actions/workflows/tests.yml)
-[![Fuzz Testing](https://github.com/Uniswap/uniswap-v3-core/actions/workflows/fuzz-testing.yml/badge.svg)](https://github.com/Uniswap/uniswap-v3-core/actions/workflows/fuzz-testing.yml)
-[![Mythx](https://github.com/Uniswap/uniswap-v3-core/actions/workflows/mythx.yml/badge.svg)](https://github.com/Uniswap/uniswap-v3-core/actions/workflows/mythx.yml)
-[![npm version](https://img.shields.io/npm/v/@uniswap/v3-core/latest.svg)](https://www.npmjs.com/package/@uniswap/v3-core/v/latest)
+[![CI](https://github.com/SMSDAO/v3-core/actions/workflows/ci.yml/badge.svg)](https://github.com/SMSDAO/v3-core/actions/workflows/ci.yml)
+[![Tests](https://github.com/SMSDAO/v3-core/actions/workflows/tests.yml/badge.svg)](https://github.com/SMSDAO/v3-core/actions/workflows/tests.yml)
+[![Lint](https://github.com/SMSDAO/v3-core/actions/workflows/lint.yml/badge.svg)](https://github.com/SMSDAO/v3-core/actions/workflows/lint.yml)
+[![Security](https://github.com/SMSDAO/v3-core/actions/workflows/security.yml/badge.svg)](https://github.com/SMSDAO/v3-core/actions/workflows/security.yml)
+[![Fuzz Testing](https://github.com/SMSDAO/v3-core/actions/workflows/fuzz-testing.yml/badge.svg)](https://github.com/SMSDAO/v3-core/actions/workflows/fuzz-testing.yml)
 
-This repository contains the core smart contracts for the Uniswap V3 Protocol.
-For higher level contracts, see the [uniswap-v3-periphery](https://github.com/Uniswap/uniswap-v3-periphery)
-repository.
+> **Enterprise Stabilization + UI Completion — v1.0.0**
 
-## Bug bounty
+A production-hardened enterprise fork of [Uniswap V3 Core](https://github.com/Uniswap/uniswap-v3-core) (`@uniswap/v3-core` v1.0.1) with a modern Neo-Glow enterprise dashboard, full CI/CD pipelines, RBAC authentication, and comprehensive documentation.
 
-This repository is subject to the Uniswap V3 bug bounty program, per the terms defined [here](./bug-bounty.md).
+---
 
-## Local deployment
+## Quick Start
 
-In order to deploy this code to a local testnet, you should install the npm package
-`@uniswap/v3-core`
-and import the factory bytecode located at
-`@uniswap/v3-core/artifacts/contracts/UniswapV3Factory.sol/UniswapV3Factory.json`.
-For example:
+### Prerequisites
+- Node.js >= 16 (LTS)
+- Yarn >= 1.22
+
+### Install & Run
+
+```bash
+# Clone
+git clone https://github.com/SMSDAO/v3-core.git
+cd v3-core
+
+# Setup environment
+cp .env.example .env
+
+# Install root dependencies (Hardhat, TypeChain, tests)
+yarn install --frozen-lockfile
+
+# Compile smart contracts
+yarn compile
+
+# Run tests
+yarn test
+
+# Run the enterprise frontend
+cd frontend
+yarn install --frozen-lockfile
+yarn dev           # Development: http://localhost:3000
+yarn build         # Production build
+yarn start         # Production server
+```
+
+---
+
+## Architecture Overview
+
+```
+v3-core/
+├── contracts/           # Solidity 0.7.6 smart contracts (Uniswap V3 Core)
+│   ├── UniswapV3Factory.sol
+│   ├── UniswapV3Pool.sol
+│   ├── interfaces/      # GPL-2.0-or-later
+│   └── libraries/       # Math, Oracle, Tick, Swap utilities
+├── test/                # Mocha/Chai/Waffle TypeScript test suite
+├── frontend/            # Next.js 13 enterprise UI (Neo-Glow design)
+│   └── src/
+│       ├── app/         # App Router pages (/, /dashboard, /admin, /developer, ...)
+│       ├── components/  # Reusable UI components + page components
+│       └── styles/      # Global Neo-Glow CSS design system
+├── docs/                # Project documentation
+├── audits/              # Security audit reports
+├── .github/workflows/   # CI/CD pipelines
+├── hardhat.config.ts    # Hardhat + Solidity compiler config
+└── CHANGELOG.md         # Keep-a-Changelog formatted history
+```
+
+See [docs/architecture.md](./docs/architecture.md) for the full contract dependency graph.
+
+---
+
+## Enterprise Features
+
+| Feature | Status |
+|---------|--------|
+| Solidity contracts (unchanged from audit baseline) | ✅ |
+| CI/CD pipelines (compile + test + lint + security) | ✅ |
+| Hardhat tests passing | ✅ |
+| Neo-Glow enterprise frontend (Next.js 13) | ✅ |
+| Tab navigation (Home · Dashboard · Users · Admin · Developer · Settings · Docs) | ✅ |
+| User Dashboard (positions, activity, notifications, settings) | ✅ |
+| Admin Dashboard (users, roles, billing, contracts, audit logs, config) | ✅ |
+| Developer Dashboard (contract console, API monitor, log viewer, env mgmt) | ✅ |
+| RBAC (Admin · Developer · User · Auditor) | ✅ |
+| Wallet-based auth stubs (MetaMask/WalletConnect) | ✅ |
+| Responsive mobile layout | ✅ |
+| Dependency vulnerability scanning | ✅ |
+| Secret scanning (Gitleaks) | ✅ |
+| Documentation suite (/docs) | ✅ |
+| CHANGELOG.md | ✅ |
+
+---
+
+## UI Preview
+
+### User Dashboard
+![User Dashboard](docs/assets/ui/user-dashboard.png)
+
+### Admin Dashboard
+![Admin Dashboard](docs/assets/ui/admin-dashboard.png)
+
+---
+
+## Navigation
+
+The enterprise UI provides tab-based navigation across seven sections:
+
+| Tab | Route | Description |
+|-----|-------|-------------|
+| **Home** | `/` | Protocol overview and quick links |
+| **Dashboard** | `/dashboard` | User account, positions, activity, notifications |
+| **Users** | `/users` | User directory (admin view) |
+| **Admin** | `/admin` | System overview, user mgmt, billing, contracts, audit logs |
+| **Developer** | `/developer` | Contract console, API monitor, log viewer, env config |
+| **Settings** | `/settings` | Account, security, notifications, API keys |
+| **Docs** | `/docs` | Embedded documentation |
+
+---
+
+## CI/CD Pipelines
+
+| Workflow | Trigger | Description |
+|----------|---------|-------------|
+| `ci.yml` | push, PR | Compile + test + lint |
+| `tests.yml` | push to main, PR | Hardhat unit tests |
+| `lint.yml` | push to main, PR | Solhint + Prettier |
+| `security.yml` | push, PR, weekly | Dependency audit + secret scanning |
+| `fuzz-testing.yml` | push to main, PR | Echidna property fuzzing |
+| `release.yml` | release published | npm publish |
+| `mythx.yml` | manual | Deep static analysis |
+
+---
+
+## RBAC Roles
+
+| Role | Access |
+|------|--------|
+| **Admin** | Full access — user management, billing, configuration, all dashboards |
+| **Developer** | Contract console, API monitoring, environment management, integration testing |
+| **User** | Dashboard, swap execution, liquidity management, account settings |
+| **Auditor** | Read-only access to audit logs, contract monitoring, user activity |
+
+---
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [docs/architecture.md](./docs/architecture.md) | Contract architecture, pool/factory design, dependency graph |
+| [docs/deployment.md](./docs/deployment.md) | Deploy instructions, network configs, reproducible builds |
+| [docs/env-vars.md](./docs/env-vars.md) | All environment variables with descriptions |
+| [docs/user-guide.md](./docs/user-guide.md) | Connect wallet, swap, liquidity management |
+| [docs/admin-guide.md](./docs/admin-guide.md) | Admin dashboard usage, RBAC, billing, audit logs |
+| [docs/developer-guide.md](./docs/developer-guide.md) | Contributing, local setup, testing, CI reference |
+
+---
+
+## Smart Contracts
+
+### Core Contracts
+- **`UniswapV3Factory`** — deploys and tracks pool contracts; maps `(token0, token1, fee)` to `pool`
+- **`UniswapV3Pool`** — concentrated liquidity AMM; supports swaps, minting, burning, flash loans
+- **`UniswapV3PoolDeployer`** — CREATE2-based deterministic pool deployment
+- **`NoDelegateCall`** — delegatecall guard
+
+### Fee Tiers
+| Fee | Tick Spacing |
+|-----|-------------|
+| 0.05% | 10 |
+| 0.30% | 60 |
+| 1.00% | 200 |
+
+### Licensing
+| Component | License |
+|-----------|---------|
+| `contracts/interfaces/` | GPL-2.0-or-later |
+| `contracts/libraries/` (select files) | GPL-2.0-or-later |
+| `contracts/libraries/FullMath.sol` | MIT |
+| All other contracts | BUSL-1.1 |
+
+---
+
+## Bug Bounty
+
+This repository is subject to the Uniswap V3 bug bounty program — see [`bug-bounty.md`](./bug-bounty.md).
+
+---
+
+## Using the npm Artifact
 
 ```typescript
 import {
   abi as FACTORY_ABI,
   bytecode as FACTORY_BYTECODE,
 } from '@uniswap/v3-core/artifacts/contracts/UniswapV3Factory.sol/UniswapV3Factory.json'
-
-// deploy the bytecode
 ```
 
-This will ensure that you are testing against the same bytecode that is deployed to
-mainnet and public testnets, and all Uniswap code will correctly interoperate with
-your local deployment.
-
-## Using solidity interfaces
-
-The Uniswap v3 interfaces are available for import into solidity smart contracts
-via the npm artifact `@uniswap/v3-core`, e.g.:
+## Using Solidity Interfaces
 
 ```solidity
 import '@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol';
 
 contract MyContract {
   IUniswapV3Pool pool;
-
-  function doSomethingWithPool() {
-    // pool.swap(...);
-  }
+  // pool.swap(...);
 }
-
 ```
 
-## Licensing
+---
 
-The primary license for Uniswap V3 Core is the Business Source License 1.1 (`BUSL-1.1`), see [`LICENSE`](./LICENSE). However, some files are dual licensed under `GPL-2.0-or-later`:
+## Changelog
 
-- All files in `contracts/interfaces/` may also be licensed under `GPL-2.0-or-later` (as indicated in their SPDX headers), see [`contracts/interfaces/LICENSE`](./contracts/interfaces/LICENSE)
-- Several files in `contracts/libraries/` may also be licensed under `GPL-2.0-or-later` (as indicated in their SPDX headers), see [`contracts/libraries/LICENSE`](contracts/libraries/LICENSE)
+See [CHANGELOG.md](./CHANGELOG.md) for the full change history.
 
-### Other Exceptions
+---
 
-- `contracts/libraries/FullMath.sol` is licensed under `MIT` (as indicated in its SPDX header), see [`contracts/libraries/LICENSE_MIT`](contracts/libraries/LICENSE_MIT)
-- All files in `contracts/test` remain unlicensed (as indicated in their SPDX headers).
+## Security
+
+- No secrets in source — see [docs/env-vars.md](./docs/env-vars.md)
+- Dependency scanning via `yarn audit` in CI
+- Secret scanning via Gitleaks in CI
+- Smart contracts are **unchanged** from the upstream Uniswap V3 Core audit baseline
+- See [`audits/`](./audits/) for security audit reports
