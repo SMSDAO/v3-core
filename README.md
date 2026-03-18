@@ -108,6 +108,24 @@ See [docs/architecture.md](./docs/architecture.md) for the full contract depende
 
 ---
 
+## Quick Deploy (Frontend only)
+
+The Next.js frontend (in `/frontend/`) is ready for instant deployment.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/SMSDAO/v3-core&project-name=v3-core-frontend&repository-name=v3-core-frontend&root-directory=frontend&demo-title=SMSDAO%20v3%20Core%20Dashboard&demo-description=Enterprise%20UI%20for%20Uniswap%20V3%20fork%20with%20RBAC%2C%20dashboards%20and%20Neo-Glow%20design&demo-url=https://v3-core-frontend.vercel.app)
+
+**Steps performed automatically:**
+- Clones this repo to your GitHub account
+- Creates a new Vercel project
+- Detects Next.js and builds the `/frontend/` folder
+- Deploys instantly (usually < 60 seconds)
+
+**Important notes after deploy:**
+- Add required environment variables from `.env.example` (especially `NEXT_PUBLIC_*` ones)
+- Smart contract backend still needs separate deployment (e.g. Hardhat node / testnet / mainnet fork)
+
+---
+
 ## Navigation
 
 The enterprise UI provides tab-based navigation across seven sections:
