@@ -57,7 +57,7 @@ v3-core/
 │   ├── interfaces/      # GPL-2.0-or-later
 │   └── libraries/       # Math, Oracle, Tick, Swap utilities
 ├── test/                # Mocha/Chai/Waffle TypeScript test suite
-├── frontend/            # Next.js 13 enterprise UI (Neo-Glow design)
+├── frontend/            # Next.js 15 enterprise UI (Neo-Glow design)
 │   └── src/
 │       ├── app/         # App Router pages (/, /dashboard, /admin, /developer, ...)
 │       ├── components/  # Reusable UI components + page components
@@ -80,7 +80,7 @@ See [docs/architecture.md](./docs/architecture.md) for the full contract depende
 | Solidity contracts (unchanged from audit baseline) | ✅ |
 | CI/CD pipelines (compile + test + lint + security) | ✅ |
 | Hardhat tests passing | ✅ |
-| Neo-Glow enterprise frontend (Next.js 13) | ✅ |
+| Neo-Glow enterprise frontend (Next.js 15) | ✅ |
 | Tab navigation (Home · Dashboard · Users · Admin · Developer · Settings · Docs) | ✅ |
 | User Dashboard (positions, activity, notifications, settings) | ✅ |
 | Admin Dashboard (users, roles, billing, contracts, audit logs, config) | ✅ |
