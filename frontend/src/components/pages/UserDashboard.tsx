@@ -37,7 +37,7 @@ export default function UserDashboard() {
             key={t}
             className={`sub-tab${activeTab === t ? ' active' : ''}`}
             onClick={() => setActiveTab(t)}
-            aria-selected={activeTab === t}
+            aria-pressed={activeTab === t}
           >
             {t.charAt(0).toUpperCase() + t.slice(1)}
           </button>

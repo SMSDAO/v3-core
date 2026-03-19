@@ -9,7 +9,7 @@ const CONSOLE_LOGS = [
 ]
 const NETWORKS = [
   { name: 'Ethereum Mainnet', chainId: 1, rpc: 'https://mainnet.infura.io/v3/...', status: 'connected' },
-  { name: 'Goerli Testnet', chainId: 5, rpc: 'https://goerli.infura.io/v3/...', status: 'available' },
+  { name: 'Sepolia Testnet', chainId: 11155111, rpc: 'https://sepolia.infura.io/v3/...', status: 'available' },
   { name: 'Arbitrum', chainId: 42161, rpc: 'https://arbitrum-mainnet.infura.io/v3/...', status: 'available' },
   { name: 'Optimism', chainId: 10, rpc: 'https://optimism-mainnet.infura.io/v3/...', status: 'available' },
 ]
@@ -28,8 +28,6 @@ export default function DeveloperDashboard() {
   const [activeTab, setActiveTab] = useState('console')
   const [consoleInput, setConsoleInput] = useState('')
   const [logs, setLogs] = useState(CONSOLE_LOGS)
-  const [selectedMethod, setSelectedMethod] = useState<string | null>(null)
-  const [methodArgs, setMethodArgs] = useState('')
 
   const handleConsoleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -91,8 +89,7 @@ export default function DeveloperDashboard() {
               {READ_METHODS.map((m) => (
                 <div key={m.name}
                   className="metric-row"
-                  style={{ cursor: 'pointer', padding: '10px 0' }}
-                  onClick={() => setSelectedMethod(m.name)}
+                  style={{ padding: '10px 0' }}
                 >
                   <div>
                     <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--accent-secondary)' }}>{m.name}</div>

@@ -6,3 +6,4 @@ typechain/
 .env
 frontend/.next/
 frontend/node_modules/
+frontend/tsconfig.tsbuildinfo

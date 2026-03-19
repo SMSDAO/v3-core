@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 
 interface AppShellProps {
   children: React.ReactNode
@@ -20,15 +21,15 @@ export default function AppShell({ children, activePage }: AppShellProps) {
     <div className="app-shell">
       {/* Navigation Bar */}
       <nav className="nav-bar" role="navigation" aria-label="Main navigation">
-        <a className="nav-logo" href="/" aria-label="SMSDAO v3-core Home">
+        <Link className="nav-logo" href="/" aria-label="SMSDAO v3-core Home">
           <div className="logo-icon" aria-hidden="true">🦄</div>
           <span>SMSDAO v3</span>
-        </a>
+        </Link>
 
         <ul className="nav-tabs" role="tablist" aria-label="Page navigation">
           {NAV_TABS.map((tab) => (
             <li key={tab.id} role="presentation">
-              <a
+              <Link
                 href={tab.href}
                 className={`nav-tab${activePage === tab.id ? ' active' : ''}`}
                 role="tab"
@@ -36,7 +37,7 @@ export default function AppShell({ children, activePage }: AppShellProps) {
                 aria-label={tab.label}
               >
                 {tab.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -56,7 +57,7 @@ export default function AppShell({ children, activePage }: AppShellProps) {
       {/* Mobile Bottom Navigation */}
       <nav className="mobile-nav" role="navigation" aria-label="Mobile navigation">
         {NAV_TABS.map((tab) => (
-          <a
+          <Link
             key={tab.id}
             href={tab.href}
             className={`mobile-nav-item${activePage === tab.id ? ' active' : ''}`}
@@ -64,7 +65,7 @@ export default function AppShell({ children, activePage }: AppShellProps) {
           >
             <span className="mobile-nav-icon" aria-hidden="true">{tab.icon}</span>
             <span>{tab.label}</span>
-          </a>
+          </Link>
         ))}
       </nav>
 
