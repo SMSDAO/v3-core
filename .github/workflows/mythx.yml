@@ -7,6 +7,8 @@ jobs:
   mythx:
     name: Submit to Mythx
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v3

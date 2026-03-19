@@ -1,15 +1,14 @@
 name: Tests
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_dispatch:  # superseded by ci.yml on push/PR
 
 jobs:
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v3

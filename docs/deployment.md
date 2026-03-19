@@ -68,7 +68,7 @@ main().catch((error) => {
 Run with:
 
 ```bash
-npx hardhat run scripts/deploy.ts --network goerli
+npx hardhat run scripts/deploy.ts --network sepolia
 ```
 
 ### Deploy to mainnet
@@ -107,7 +107,6 @@ import {
 | Network          | Chain ID | Environment Variable Prefix |
 |------------------|----------|-----------------------------|
 | Mainnet          | 1        | `mainnet`                   |
-| Goerli           | 5        | `goerli`                    |
 | Sepolia          | 11155111 | `sepolia`                   |
 | Arbitrum         | 42161    | `arbitrum`                  |
 | Optimism         | 10       | `optimism`                  |

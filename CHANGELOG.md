@@ -33,11 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Admin Dashboard**: system overview, user management, roles, billing, audit logs, contract monitoring
   - **Developer Dashboard**: contract interaction console, API monitoring, log viewer, environment management
   - Wallet-based authentication (MetaMask/WalletConnect integration stubs)
-  - Email/password authentication with bcrypt hashing and JWT refresh tokens
   - RBAC with four roles: Admin, Developer, User, Auditor
   - Responsive, mobile-friendly, accessibility-compliant layouts
-  - PWA manifest
-  - Security: rate limiting, CSRF protection, secure headers (Next.js middleware)
 - **`CHANGELOG.md`**: Created with Keep-a-Changelog format
 
 ### Changed

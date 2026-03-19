@@ -8,10 +8,10 @@ const POSITIONS = [
   { id: 3, pair: 'DAI/USDC', fee: '0.05%', range: '$0.999 – $1.001', liquidity: '$25,000', fees: '$52.80', status: 'Out of Range' },
 ]
 const ACTIVITY = [
-  { type: 'Swap', pair: 'ETH → USDC', amount: '2.5 ETH', value: '$4,750', time: '2 min ago' },
-  { type: 'Add Liq', pair: 'USDC/ETH', amount: '$5,000', value: '$5,000', time: '1 hr ago' },
-  { type: 'Collect', pair: 'WBTC/ETH', amount: '0.003 ETH', value: '$5.70', time: '3 hr ago' },
-  { type: 'Swap', pair: 'USDC → WBTC', amount: '$2,000', value: '$2,000', time: '5 hr ago' },
+  { type: 'Swap', pair: 'ETH → USDC', amount: '2.5 ETH', value: '$4,750', time: '2 min ago', txHash: '0xa1b2c3' },
+  { type: 'Add Liq', pair: 'USDC/ETH', amount: '$5,000', value: '$5,000', time: '1 hr ago', txHash: '0xd4e5f6' },
+  { type: 'Collect', pair: 'WBTC/ETH', amount: '0.003 ETH', value: '$5.70', time: '3 hr ago', txHash: '0x7c8d9e' },
+  { type: 'Swap', pair: 'USDC → WBTC', amount: '$2,000', value: '$2,000', time: '5 hr ago', txHash: '0x2f3a4b' },
 ]
 
 export default function UserDashboard() {
@@ -202,7 +202,7 @@ export default function UserDashboard() {
                     <td style={{ fontFamily: 'var(--font-mono)', fontSize: 12 }}>{a.amount}</td>
                     <td>{a.value}</td>
                     <td style={{ color: 'var(--text-muted)' }}>{a.time}</td>
-                    <td><span className="address">0x{Math.random().toString(16).slice(2, 8)}…</span></td>
+                    <td><span className="address">{a.txHash}…</span></td>
                   </tr>
                 ))}
               </tbody>

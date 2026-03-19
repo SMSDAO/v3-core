@@ -2,23 +2,23 @@
 import { useState } from 'react'
 
 const USERS = [
-  { id: 1, address: '0x742d35Cc6634C0532925a3b8D4C9E5C4a2b8a7F3', name: 'Alice', role: 'admin', status: 'active', joined: '2024-01-15', lastSeen: '2 min ago' },
-  { id: 2, address: '0xAbC123def456789012345678901234567890abcd', name: 'Bob', role: 'developer', status: 'active', joined: '2024-02-10', lastSeen: '1 hr ago' },
-  { id: 3, address: '0x1234567890abcdef1234567890abcdef12345678', name: 'Carol', role: 'user', status: 'active', joined: '2024-03-05', lastSeen: '3 hr ago' },
-  { id: 4, address: '0xFedCba9876543210fedcba9876543210FedCba98', name: 'Dave', role: 'auditor', status: 'active', joined: '2024-03-12', lastSeen: '1 day ago' },
-  { id: 5, address: '0x9999888877776666555544443333222211110000', name: 'Eve', role: 'user', status: 'inactive', joined: '2024-01-20', lastSeen: '30 days ago' },
+  { id: 1, address: '0x742d35Cc6634C0532925a3b8D4C9E5C4a2b8a7F3', name: 'Alice', role: 'admin', status: 'active', joined: '2024-01-15', lastSeen: '2 min ago', apiCalls: 428391, usagePct: 86 },
+  { id: 2, address: '0xAbC123def456789012345678901234567890abcd', name: 'Bob', role: 'developer', status: 'active', joined: '2024-02-10', lastSeen: '1 hr ago', apiCalls: 317204, usagePct: 63 },
+  { id: 3, address: '0x1234567890abcdef1234567890abcdef12345678', name: 'Carol', role: 'user', status: 'active', joined: '2024-03-05', lastSeen: '3 hr ago', apiCalls: 182550, usagePct: 37 },
+  { id: 4, address: '0xFedCba9876543210fedcba9876543210FedCba98', name: 'Dave', role: 'auditor', status: 'active', joined: '2024-03-12', lastSeen: '1 day ago', apiCalls: 94820, usagePct: 19 },
+  { id: 5, address: '0x9999888877776666555544443333222211110000', name: 'Eve', role: 'user', status: 'inactive', joined: '2024-01-20', lastSeen: '30 days ago', apiCalls: 0, usagePct: 0 },
 ]
 const AUDIT_LOGS = [
-  { user: 'Alice', action: 'User role updated', target: 'Dave → Auditor', time: '10 min ago' },
-  { user: 'Alice', action: 'Feature flag enabled', target: 'developer_console', time: '1 hr ago' },
-  { user: 'Bob', action: 'Environment config changed', target: 'RPC_URL', time: '2 hr ago' },
-  { user: 'Alice', action: 'User deactivated', target: 'Eve', time: '2 days ago' },
-  { user: 'Alice', action: 'User created', target: 'Dave', time: '3 days ago' },
+  { user: 'Alice', action: 'User role updated', target: 'Dave → Auditor', time: '10 min ago', ip: '192.168.1.42' },
+  { user: 'Alice', action: 'Feature flag enabled', target: 'developer_console', time: '1 hr ago', ip: '192.168.1.42' },
+  { user: 'Bob', action: 'Environment config changed', target: 'RPC_URL', time: '2 hr ago', ip: '192.168.1.15' },
+  { user: 'Alice', action: 'User deactivated', target: 'Eve', time: '2 days ago', ip: '192.168.1.42' },
+  { user: 'Alice', action: 'User created', target: 'Dave', time: '3 days ago', ip: '192.168.1.42' },
 ]
 const POOL_STATS = [
-  { pair: 'USDC/ETH', fee: '0.05%', tvl: '$125.4M', volume24h: '$18.2M', fees24h: '$9.1K' },
-  { pair: 'WBTC/ETH', fee: '0.30%', tvl: '$84.7M', volume24h: '$12.5M', fees24h: '$37.5K' },
-  { pair: 'DAI/USDC', fee: '0.05%', tvl: '$210.8M', volume24h: '$45.2M', fees24h: '$22.6K' },
+  { pair: 'USDC/ETH', fee: '0.05%', address: '0x88e6a0', tvl: '$125.4M', volume24h: '$18.2M', fees24h: '$9.1K' },
+  { pair: 'WBTC/ETH', fee: '0.30%', address: '0x4585ab', tvl: '$84.7M', volume24h: '$12.5M', fees24h: '$37.5K' },
+  { pair: 'DAI/USDC', fee: '0.05%', address: '0x5777ca', tvl: '$210.8M', volume24h: '$45.2M', fees24h: '$22.6K' },
 ]
 
 export default function AdminDashboard() {
@@ -215,10 +215,10 @@ export default function AdminDashboard() {
                     <tr key={u.id}>
                       <td>{u.name}</td>
                       <td><span className={`badge badge-${u.role}`}>{u.role.charAt(0).toUpperCase()+u.role.slice(1)}</span></td>
-                      <td>{Math.floor(Math.random() * 500000 + 100000).toLocaleString()}</td>
+                      <td>{u.apiCalls.toLocaleString()}</td>
                       <td>
                         <div className="progress-bar" style={{ width: 80 }}>
-                          <div className="progress-fill" style={{ width: `${Math.floor(Math.random() * 80 + 10)}%` }}></div>
+                          <div className="progress-fill" style={{ width: `${u.usagePct}%` }}></div>
                         </div>
                       </td>
                       <td style={{ color: 'var(--text-muted)' }}>2026-04-01</td>
@@ -245,7 +245,7 @@ export default function AdminDashboard() {
                   <tr key={i}>
                     <td style={{ fontWeight: 600 }}>{p.pair}</td>
                     <td><span className="tag">{p.fee}</span></td>
-                    <td><span className="address">0x{Math.random().toString(16).slice(2, 10)}…</span></td>
+                    <td><span className="address">{p.address}…</span></td>
                     <td>{p.tvl}</td>
                     <td>{p.volume24h}</td>
                     <td style={{ color: 'var(--accent-success)' }}>{p.fees24h}</td>
@@ -326,7 +326,7 @@ export default function AdminDashboard() {
                     <td>{l.action}</td>
                     <td><span className="tag">{l.target}</span></td>
                     <td style={{ color: 'var(--text-muted)' }}>{l.time}</td>
-                    <td style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-muted)' }}>192.168.1.{Math.floor(Math.random()*255)}</td>
+                    <td style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-muted)' }}>{l.ip}</td>
                   </tr>
                 ))}
               </tbody>

@@ -1,15 +1,14 @@
 name: Lint
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_dispatch:  # superseded by ci.yml on push/PR
 
 jobs:
   run-linters:
     name: Run linters
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Check out Git repository

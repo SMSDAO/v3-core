@@ -1,5 +1,4 @@
 'use client'
-import { useRouter } from 'next/navigation'
 
 interface AppShellProps {
   children: React.ReactNode
@@ -17,8 +16,6 @@ const NAV_TABS = [
 ]
 
 export default function AppShell({ children, activePage }: AppShellProps) {
-  const router = useRouter()
-
   return (
     <div className="app-shell">
       {/* Navigation Bar */}
